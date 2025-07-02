@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./namecard.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet' crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="form-group">
+            <span>Name:</span>
+            <input id="input_name" type="text" name="name" placeholder="e.g. Joash Tan Jia Le" class="form-field" />
+        </div>
+        <div class="form-group">
+            <span>Position:</span>
+            <input id="input_position" type="text" name="position" placeholder="e.g. Assistant Director" class="form-field"/>
+        </div>
+        <div class="form-group">
+            <span>Phone:</span>
+            <input id="input_number" type="text" name="phone" placeholder="e.g. 9123 4567" class="form-field"/>
+        </div>
+        <!--<div class="form-group">
+            <span>Facebook:</span>
+            <input type="text" name="facebook" placeholder="https://www.facebook.com/example/" class="form-field"/>
+        </div>
+        <div class="form-group">
+            <span>Instagram:</span>
+            <input type="text" name="instagram" placeholder="https://www.instagram.com/example/" class="form-field"/>
+        </div>
+        <div class="form-group">
+            <span>LinkedIn:</span>
+            <input type="text" name="linkedin" placeholder="www.linkedin.com/in/example" class="form-field"/>
+        </div>-->
+        <div>
+            <button class="button-6" id="generate">Generate</button>
+            <button class="button-6" id="dl">Download</button>
+            <a class="button-6" href="./Outlook Signature Instructions.pdf" target="_blank">Instructions (PDF)</a>
+        </div>
+        <br />
+       <div id="namecard" style="width:551px; height:170px; display: flex; flex-direction: column; position: relative; margin: 0; padding: 0; box-sizing: border-box;">
+          <img src="https://qmari.github.io/EVe_Email/email_signature_2025_new.svg" style="display: block; width: 550px; height: 170px; margin: 0; padding: 0; border: 0;" />
+            <div style="position: absolute; top: -5px; left: 280px; width: 280px; height: 170px; display: flex; flex-direction: column; justify-content: center; padding-top: 13px">
+               <span id="card_name" style="color: white; font-size: 23px; font-family: Helvetica, sans-serif; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px; display: inline-block;">Joash Tan Jia Le</span>
+                <span id="card_position" style="color: white; font-size: 12px; font-family: Helvetica, sans-serif;">Coffee Maker</span>
+                <span id="card_number" style="color: white; font-size: 11px; font-family: Helvetica, sans-serif;">+65 9123 4567</span>
+                <br/>
+                <span style="color: white; font-size: 10px; font-family: Helvetica, sans-serif;">EV-Electric (EVe) Charging Pte Ltd</span>
+                <span style="color: white; font-size: 10px; font-family: Helvetica, sans-serif;">www.eve.com.sg</span>
+            </div>
+        </div>
+        
+        
+        
+        
+    </body>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+       document.getElementById("generate").onclick = function () {
+    const nameInput = document.getElementById("input_name").value.trim();
+    const nameEl = document.getElementById("card_name");
+
+    // Set name and reset font size
+    nameEl.textContent = nameInput;
+    let fontSize = 23;
+    nameEl.style.fontSize = fontSize + "px";
+
+    // Keep shrinking font size until it fits in one line
+    const maxWidth = 250;
+    const testEl = nameEl.cloneNode(true);
+    document.body.appendChild(testEl);
+    testEl.style.visibility = "hidden";
+    testEl.style.position = "absolute";
+    testEl.style.width = "auto";
+    testEl.style.maxWidth = "none";
+
+    while (testEl.offsetWidth > maxWidth && fontSize > 12) {
+        fontSize -= 1;
+        testEl.style.fontSize = fontSize + "px";
+    }
+
+    nameEl.style.fontSize = fontSize + "px";
+    document.body.removeChild(testEl);
+
+    // Set other values
+    document.getElementById("card_position").textContent = document.getElementById("input_position").value;
+    document.getElementById("card_number").textContent = "+65 " + document.getElementById("input_number").value;
+};
+
+        document.getElementById("dl").onclick = function(){
+            const target = document.getElementById("namecard");
+            var scale = 2
+            domtoimage.toBlob(target, {
+        width: target.offsetWidth * scale,
+        height: target.offsetHeight * scale,
+        style: {
+            transform: 'scale(' + scale + ')',
+            transformOrigin: 'top left',
+            padding: '0',
+            margin: '0',
+            background: 'transparent',  
+                }})
+                .then(function(blob) {
+                    window.saveAs(blob, "signature.png")
+                })
+        }
+    </script>
+</html>
