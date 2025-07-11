@@ -82,9 +82,9 @@
 
     // Set other values
     document.getElementById("card_position").textContent = document.getElementById("input_position").value;
-   const phoneNumber = document.getElementById("input_number").value.trim();
+const phoneNumber = document.getElementById("input_number").value.trim();
     if (phoneNumber) {
-        document.getElementById("card_number").textContent = "+65 " + phoneNumber;
+        document.getElementById("card_number").textContent = phoneNumber; // Display phone number without +65
     } else {
         document.getElementById("card_number").textContent = ""; // Don't show phone number if not entered
     }
