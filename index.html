@@ -82,7 +82,12 @@
 
     // Set other values
     document.getElementById("card_position").textContent = document.getElementById("input_position").value;
-    document.getElementById("card_number").textContent = "+65 " + document.getElementById("input_number").value;
+   const phoneNumber = document.getElementById("input_number").value.trim();
+    if (phoneNumber) {
+        document.getElementById("card_number").textContent = "+65 " + phoneNumber;
+    } else {
+        document.getElementById("card_number").textContent = ""; // Don't show phone number if not entered
+    }
 };
 
         document.getElementById("dl").onclick = function(){
